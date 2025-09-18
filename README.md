@@ -63,3 +63,28 @@ MIT-Lizenz
 
 ### License
 MIT License
+
+## 24-Stunden Test-Checkliste / 24-Hour Test Guide
+
+### Deutsch
+Um sicherzustellen, dass das Skript zuverlässig läuft:
+
+1. Starte das Skript in ioBroker.
+2. Beobachte `verbrauch_aktuell` über 24 Stunden, prüfe, ob die Werte plausibel steigen.
+3. Prüfe `verbrauch_gesamt`, dass der Lebenszähler korrekt hochgezählt wird.
+4. Achte auf kurzzeitige Ausreißer oder 0-Werte, ggf. mit der Filterfunktion prüfen.
+5. Teste die Buttons `backup_now` und `restore_now` einmal, um sicherzugehen, dass Backup/Restore funktioniert.
+6. Am Ende der 24 Stunden: Werte prüfen und mit der Victron-App vergleichen.
+7. Notiere Auffälligkeiten, um später Anpassungen vorzunehmen.
+
+### English
+To ensure the script runs reliably:
+
+1. Start the script in ioBroker.
+2. Monitor `verbrauch_aktuell` over 24 hours and check that values increase plausibly.
+3. Check `verbrauch_gesamt` to ensure the life counter increments correctly.
+4. Watch for short-term spikes or zero-values; use the filter function if necessary.
+5. Test the `backup_now` and `restore_now` buttons once to ensure backup/restore works.
+6. At the end of 24 hours, compare values with the Victron app.
+7. Record any anomalies for later adjustments.
+
