@@ -13,10 +13,15 @@
 - Geeignet für kleine Lastpunkte, sensibel für kleine Schwankungen
 
 ### Installation
-1. Skript in den ioBroker Scripts-Ordner kopieren
-2. MQTT-Datenpunkte für Strom und Spannung an dein System anpassen
-3. Basisordner im Script einstellen (`0_userdata.0.victron.lastausgangpt.`)
-4. Script starten und Tagesverbrauch beobachten
+## Deutsch
+1. Öffne ioBroker Admin im Browser.
+2. Gehe zu **Skripte → JavaScript**.
+3. Erstelle ein neues Skript und wähle **JavaScript** als Typ aus.
+4. Öffne die `.js` Datei mit dem Skript-Code und kopiere den gesamten Inhalt.
+5. Füge den Inhalt in das neue JavaScript-Skriptfenster ein.
+6. Speichern und den Schieberegler auf „Ein“ setzen, um das Skript zu aktivieren.
+7. Prüfe die Werte in Echtzeit und beobachte die Datenpunkte (`verbrauch_aktuell`, `verbrauch_gesamt`, `aktuelle_watt`).
+
 
 ### Nutzung
 - `verbrauch_aktuell` für Tagesverbrauch beobachten
@@ -45,10 +50,13 @@ MIT-Lizenz
 - Works with small load points, sensitive to minor fluctuations
 
 ### Installation
-1. Copy the script to your ioBroker scripts folder
-2. Adjust the MQTT datapoints for current and voltage to match your system
-3. Set up the desired base folder in the script (`0_userdata.0.victron.lastausgangpt.`)
-4. Run the script and observe the daily consumption
+. Open ioBroker Admin in your browser.
+2. Go to **Scripts → JavaScript**.
+3. Create a new script and select **JavaScript** as the type.
+4. Open the `.js` file and copy all the content.
+5. Paste the content into the new JavaScript script window.
+6. Save and toggle the script to "On" to activate it.
+7. Check the real-time values and monitor the datapoints (`verbrauch_aktuell`, `verbrauch_gesamt`, `aktuelle_watt`).
 
 ### Usage
 - Observe the `verbrauch_aktuell` datapoint for daily consumption
