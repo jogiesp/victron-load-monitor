@@ -54,7 +54,7 @@ MIT-Lizenz
 - Works with small load points, sensitive to minor fluctuations
 
 ### Installation
-. Open ioBroker Admin in your browser.
+1. Open ioBroker Admin in your browser.
 2. Go to **Scripts → JavaScript**.
 3. Create a new script and select **JavaScript** as the type.
 4. Open the `.js` file and copy all the content.
