@@ -1,7 +1,7 @@
-# Victron Load Monitor / Victron Lastmonitor mqtt ESP Mikrocontroller ioBroker
+# Victron Last-Ausgang / Victron Lastmonitor mqtt ESP Mikrocontroller ioBroker
 
 ## Deutsch
-**Genaues Monitoring des Victron-Lastausgangs, Tages- und Gesamtverbrauch, inklusive EMA-Glättung, Backup und Ausreißerfilter.**
+**Genaues Monitoring des Last-Ausgang, Tages- und Gesamtverbrauch, inklusive EMA-Glättung, Backup und Ausreißerfilter.**
 
 ### Funktionen
 - Echtzeitüberwachung der aktuellen Last (W) mit EMA-Glättung
@@ -42,7 +42,7 @@ Stelle sicher, dass dein ESP82XX korrekt konfiguriert ist und die Daten an ioBro
 MIT-Lizenz
 
 ## English
-**Precise monitoring of Victron load, daily and total consumption, with EMA smoothing, backup, and outlier filtering.**
+**Precise monitoring of Victron load output, daily and total consumption, with EMA smoothing, backup, and outlier filtering.**
 
 ### Features
 - Real-time monitoring of current load (W) with EMA smoothing
