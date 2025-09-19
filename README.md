@@ -61,7 +61,8 @@ MIT-Lizenz
 5. Paste the content into the new JavaScript script window.
 6. Save and toggle the script to "On" to activate it.
 7. Check the real-time values and monitor the datapoints (`verbrauch_aktuell`, `verbrauch_gesamt`, `aktuelle_watt`).
-8. The MQTT datapoints (`mqtt.0.Victron.Load_current` and `mqtt.0.Victron.Voltage`) come from an **ESP82XX microcontroller** running the **Victron2MQTT firmware**.  
+8. The MQTT datapoints (`mqtt.0.Victron.Load_current` and `mqtt.0.Victron.Voltage`) come from an **ESP82XX microcontroller** running the **[Projekt Victron2MQTT auf GitHub](https://github.com/softwarecrash/Victron2MQTT)
+**.  
 Make sure your ESP82XX is properly configured and sending data to ioBroker before starting the script.
 
 
