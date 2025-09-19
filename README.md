@@ -22,7 +22,8 @@
 6. Speichern und den Schieberegler auf „Ein“ setzen, um das Skript zu aktivieren.
 7. Prüfe die Werte in Echtzeit und beobachte die Datenpunkte (`verbrauch_aktuell`, `verbrauch_gesamt`, `aktuelle_watt`).
 8. # MQTT Data Source / MQTT Datenquelle
-Die MQTT-Datenpunkte (`mqtt.0.Victron.Load_current` und `mqtt.0.Victron.Voltage`) stammen von einem **ESP82XX Mikrocontroller**, auf dem die Firmware **Victron2MQTT** läuft.  
+Die MQTT-Datenpunkte (`mqtt.0.Victron.Load_current` und `mqtt.0.Victron.Voltage`) stammen von einem **ESP82XX Mikrocontroller**, auf dem die Firmware **[Projekt Victron2MQTT auf GitHub](https://github.com/softwarecrash/Victron2MQTT)
+** läuft.  
 Stelle sicher, dass dein ESP82XX korrekt konfiguriert ist und die Daten an ioBroker gesendet werden, bevor du das Skript startest.
 
 
