@@ -106,3 +106,4 @@ To ensure the script runs reliably:
 6. At the end of 24 hours, compare values with the Victron app.
 7. Record any anomalies for later adjustments.
 
+![Victron Load Monitor Ansicht](images/victron_screenshot.png)
