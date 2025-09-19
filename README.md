@@ -1,4 +1,4 @@
-# Victron Last-Ausgang / Victron Lastmonitor  load output mqtt ESP Mikrocontroller ioBroker
+# Victron Solarladeregler MPPT Last-Ausgang kWh / Victron Lastmonitor  load output mqtt ESP Mikrocontroller ioBroker
 
 ## Deutsch
 **Genaues Monitoring des Last-Ausgang, Tages- und Gesamtverbrauch, inklusive EMA-Glättung, Backup und Ausreißerfilter.**
