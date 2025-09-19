@@ -10,7 +10,7 @@
 - Kurzzeitige Ausreißer oder 0-Werte filtern für höhere Genauigkeit
 - Manuelle Anpassung des Tagesverbrauchs möglich
 - Backup- und Restore-Funktion für sichere Datensicherung
-- Geeignet für kleine Lastpunkte, sensibel für kleine Schwankungen
+- Geeignet auch für kleine Lastwerte, sensibel für kleine Schwankungen
 
 ### Installation
 ## Deutsch
@@ -51,7 +51,7 @@ MIT-Lizenz
 - Filter out short-term spikes or zero-values to improve accuracy
 - Manual adjustment of daily consumption
 - Backup & restore functionality for safe data storage
-- Works with small load points, sensitive to minor fluctuations
+- Also functions at low load values., sensitive to minor fluctuations
 
 ### Installation
 1. Open ioBroker Admin in your browser.
