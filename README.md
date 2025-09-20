@@ -109,3 +109,4 @@ To ensure the script runs reliably:
 7. Record any anomalies for later adjustments.
 
 ![Datenpunkte Ansicht](images/datenpunkte.jpg)
+![Vergleich der Victron Lastausgangsdaten](https://github.com/jogiesp/victron-load-monitor/blob/main/images/vergleich_beispiel.png)
