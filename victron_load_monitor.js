@@ -1,7 +1,7 @@
 // === Verbesserter Victron Tagesverbrauch & Lebenszähler mit EMA, Backup & Fehlerbehandlung & Filter ===
 
 // Zielordner für das Gemini-Testskript
-const base = "0_userdata.0.victron.lastausgangpt.";
+const base = "0_userdata.0.victron.lastausgang.";
 
 // Quellen
 const ampDP    = "mqtt.0.Victron.Load_current"; // A
