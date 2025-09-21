@@ -83,11 +83,13 @@ Measurement                         Data Conversion                Protocol Hand
 
 | Model Series | Load Output | VE.Direct | Compatible |
 |-------------|-------------|-----------|------------|
-| MPPT 75/10  | ❌ No      | ✅ Yes    | ❌ No      |
+| MPPT 75/10  | ✅ Yes     | ✅ Yes    | ✅ Yes     |
 | MPPT 75/15  | ✅ Yes     | ✅ Yes    | ✅ Yes     |
-| MPPT 100/30 | ✅ Yes     | ✅ Yes    | ✅ Yes     |
-| MPPT 100/50 | ✅ Yes     | ✅ Yes    | ✅ Yes     |
-| MPPT 150/35 | ✅ Yes     | ✅ Yes    | ✅ Yes     |
+| MPPT 100/15 | ✅ Yes     | ✅ Yes    | ✅ Yes     |
+| MPPT 100/20 | ✅ Yes     | ✅ Yes    | ✅ Yes     |
+| MPPT 100/30 | ❌ No      | ✅ Yes    | ❌ No      |
+| MPPT 100/50 | ❌ No      | ✅ Yes    | ❌ No      |
+
 
 ## ⚙️ Software Prerequisites
 
