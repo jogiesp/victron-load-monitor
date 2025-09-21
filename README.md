@@ -316,7 +316,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For issues, questions, or contributions:
 
 1. Check the [Issues](../../issues) section
-2. Review [Discussions](../../discussions) for community support
-3. Consult the [Wiki](../../wiki) for additional documentation
+2. Consult the [Wiki](../../wiki) for additional documentation
 
 **Happy Monitoring! ⚡🔋**
