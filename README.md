@@ -77,7 +77,7 @@ Measurement                         Data Conversion                Protocol Hand
 
 3. **VE.Direct Cable**
    - Connect ESP to Victron controller's VE.Direct port
-   - Standard RJ45 or JST-PH connector (model dependent)
+   
 
 ### Supported Victron Controllers
 
