@@ -1,4 +1,4 @@
-Anfrage
+
 {
   `body`: `# Victron Load Monitor 🔋⚡
 
