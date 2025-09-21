@@ -17,7 +17,7 @@
 - [Installation Guide](#-installation-guide)
 - [Data Points & Monitoring](#-data-points--monitoring)
 - [Technical Specifications](#-technical-specifications)
-- [Configuration & Customization](#-configuration--customization)
+- [Configuration & Customization](#%EF%B8%8F-configuration--customization)
 - [Monitoring & Verification](#-monitoring--verification)
 - [Troubleshooting](#-troubleshooting)
 - [Use Cases](#-use-cases)
