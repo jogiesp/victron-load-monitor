@@ -49,7 +49,7 @@ This project provides precise monitoring of the load output from Victron MPPT so
 
 ```
 ┌─────────────────┐    VE.Direct    ┌─────────────────┐    MQTT     ┌─────────────────┐    JavaScript    ┌─────────────────┐
-│                 │ ────────────► │                 │ ─────────► │                 │ ──────────────► │                 │
+│                 │ ────────────►   │                 │ ─────────►  │                 │ ──────────────►  │                 │
 │  Victron MPPT   │                 │  ESP82XX with   │             │    ioBroker     │                  │   Load Monitor  │
 │  Charge         │                 │  Victron2MQTT   │             │    MQTT         │                  │     Script      │
 │  Controller     │                 │    Firmware     │             │    Adapter      │                  │                 │
