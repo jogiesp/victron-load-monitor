@@ -17,7 +17,7 @@
 - [Installation Guide](#-installation-guide)
 - [Data Points & Monitoring](#-data-points--monitoring)
 - [Technical Specifications](#-technical-specifications)
-- [Configuration & Customization](#-configuration--customization)
+- [Configuration & Customization](#-configuration-customization)
 - [Monitoring & Verification](#-monitoring--verification)
 - [Troubleshooting](#-troubleshooting)
 - [Use Cases](#-use-cases)
@@ -67,7 +67,7 @@ Measurement                         Data Conversion                Protocol Hand
 
 1. **Victron MPPT Solar Charge Controller**
    - Must have load output functionality
-   - Compatible models: 75/15, 100/30, 100/50, 150/35, etc.
+   - Compatible models: 75/10, 75/15, 100/15, 100/20.
    - VE.Direct port required
 
 2. **ESP82XX Microcontroller**
@@ -287,7 +287,7 @@ log(\"Calculated watts: \" + calculated_watts);
 
 ### Best Suited For
 
-- Load powers: 5W to 800W
+- Load powers: 5W to 360W
 - Applications requiring high precision
 - Systems with variable loads
 - Long-term energy tracking needs
@@ -313,7 +313,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **ioBroker Community** for the robust IoT platform
 - **ESP Community** for affordable, reliable hardware
 
-## 📞 Support
+## 📞 Support ❌ No
 
 For issues, questions, or contributions:
 
