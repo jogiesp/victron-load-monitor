@@ -307,7 +307,7 @@ We welcome contributions! Areas for improvement:
 <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="50%" style="border: 2px solid black; padding: 5px;">
 
 <!-- Bild 2 mit Rahmen -->
-<img src="mages/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="40%" style="border: 2px solid black; padding: 5px;">
+<img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="40%" style="border: 2px solid black; padding: 5px;">
 
 
 
