@@ -10,7 +10,7 @@
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Overview](#-overview)
 - [System Architecture](#system-architecture)
 - [Hardware Requirements](#hardware-requirements)
 - [Software Prerequisites](#software-prerequisites)
