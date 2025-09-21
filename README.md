@@ -305,6 +305,8 @@ We welcome contributions! Areas for improvement:
 ![Datenpunkte Ansicht](images/datenpunkte.jpg)
 ![Vergleich der Victron Lastausgangsdaten](https://github.com/jogiesp/victron-load-monitor/blob/main/images/vergleich_beispiel.png)
 
+<img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="50%">
+<img src="https://github.com/jogiesp/victron-load-monitor/blob/main/images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="50%">
 
 
 
