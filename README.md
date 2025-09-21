@@ -304,7 +304,7 @@ We welcome contributions! Areas for improvement:
 
 
 <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="50%">
-<img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="50%">
+<img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="40%">
 
 
 
