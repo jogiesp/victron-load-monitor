@@ -302,6 +302,13 @@ We welcome contributions! Areas for improvement:
 - Mobile app integration
 - Historical data analysis tools
 
+![Datenpunkte Ansicht](images/datenpunkte.jpg)
+![Vergleich der Victron Lastausgangsdaten](https://github.com/jogiesp/victron-load-monitor/blob/main/images/vergleich_beispiel.png)
+
+
+
+
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
