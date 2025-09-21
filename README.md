@@ -319,6 +319,4 @@ For issues, questions, or contributions:
 2. Review [Discussions](../../discussions) for community support
 3. Consult the [Wiki](../../wiki) for additional documentation
 
-**Happy Monitoring! ⚡🔋**`,
-  `kind`: `other`,
-  `summary_title`: `README.md für Victron Load Monitor`
+**Happy Monitoring! ⚡🔋**
