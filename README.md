@@ -303,13 +303,19 @@ We welcome contributions! Areas for improvement:
 - Historical data analysis tools
 
 
-<!-- Bild 1 mit Rahmen -->
-<img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="50%" style="border: 2px solid black; padding: 5px;">
+<!-- Erster Rahmen mit Beschriftung -->
+<figure style="display: inline-block; border: 2px solid black; padding: 10px; margin: 10px; text-align: center;">
+  <figcaption><strong>ioBroker Datenpunkte</strong></figcaption>
+  <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="40%">
+</figure>
 
-<!-- Bild 2 mit Rahmen -->
-<img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="40%" style="border: 2px solid black; padding: 5px;">
+<!-- Zweiter Rahmen mit Beschriftung -->
+<figure style="display: inline-block; border: 2px solid black; padding: 10px; margin: 10px; text-align: center;">
+  <figcaption><strong>Victron App VS Visualisierung Iobroker</strong></figcaption>
+  <img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="30%">
+</figure>
 
-
+<br> <!-- Leerzeile nach den Bildern -->
 
 
 ## 📄 License
