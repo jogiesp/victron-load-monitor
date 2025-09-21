@@ -45,7 +45,7 @@ This project provides precise monitoring of the load output from Victron MPPT so
   - Persistent storage across system restarts
 - **High Sensitivity**: Optimized for small load variations and low-power applications
 
-## 🏗️ System Architecture
+## 🏗 System Architecture
 
 ```
 ┌─────────────────┐   VE.Direct    ┌─────────────────┐   MQTT     ┌─────────────────┐   JavaScript    ┌─────────────────┐
