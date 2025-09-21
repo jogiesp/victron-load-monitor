@@ -1,6 +1,4 @@
-
-{
-  `body`: `# Victron Load Monitor 🔋⚡
+# Victron Load Monitor 🔋⚡
 
 **Professional monitoring solution for Victron MPPT solar chargers with load output functionality**
 
@@ -324,7 +322,3 @@ For issues, questions, or contributions:
 **Happy Monitoring! ⚡🔋**`,
   `kind`: `other`,
   `summary_title`: `README.md für Victron Load Monitor`
-}
-
-Antwort
-Text message creation template has been presented.
