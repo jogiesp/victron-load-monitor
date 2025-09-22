@@ -25,7 +25,7 @@
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
 - [Support](#-support--no)
-- [Example images](#-[-example-images))
+- [Example images](#-example-images))
 
 ## 📖 Overview
 
