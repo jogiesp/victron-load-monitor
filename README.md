@@ -26,7 +26,7 @@
 - [Acknowledgments](#-acknowledgments)
 - [Support](#-support--no)
 - [Example images](#example-images)
-
+- [Special thanks for support](#Special-thanks-for-support-from-the-following-Telegram-groups)
 ## 📖 Overview
 
 This project provides precise monitoring of the load output from Victron MPPT solar charge controllers, delivering real-time consumption data with advanced filtering and analytics. The system captures power consumption in watts and accurately calculates energy usage in kWh for both daily tracking and lifetime monitoring.
@@ -314,7 +314,7 @@ We welcome contributions! Areas for improvement:
 <!-- Zweiter Rahmen mit Beschriftung -->
 <figure style="display: inline-block; border: 2px solid black; background-color: #f9f9f9; padding: 10px; margin: 10px; text-align: center; border-radius: 8px;">
   <figcaption><strong>Victron App VS Visualisierung IoBroker</strong></figcaption>
-  <img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="30%">
+  <img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="20%">
 </figure>
 
 <br> <!-- Leerzeile nach den Bildern -->
@@ -330,7 +330,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **ioBroker Community** for the robust IoT platform  
 - **ESP Community** for affordable, reliable hardware  
 
-🏆 Special thanks for support from the following Telegram groups:  
+## 🏆 Special thanks for support from the following Telegram groups  
 - [Solaranlage](https://t.me/PV_Solaranlage)  
 - [Tasmota-DE](https://t.me/TasmotaDE)
 
