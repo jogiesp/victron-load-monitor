@@ -308,7 +308,7 @@ We welcome contributions! Areas for improvement:
 <!-- Erster Rahmen mit Beschriftung -->
 <figure style="display: inline-block; border: 2px solid black; background-color: #f9f9f9; padding: 10px; margin: 10px; text-align: center; border-radius: 8px;">
   <figcaption><strong>ioBroker Datenpunkte</strong></figcaption>
-  <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="60%">
+  <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="80%">
 </figure>
 
 <!-- Zweiter Rahmen mit Beschriftung -->
