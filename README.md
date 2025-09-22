@@ -24,7 +24,7 @@
 - [Contributing](#-contributing)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
-- [Support](#-support)
+- [Support](#-support--no))
 
 ## 📖 Overview
 
