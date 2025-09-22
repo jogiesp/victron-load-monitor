@@ -1,4 +1,4 @@
-/* V.1
+/*
 * Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
 * und speichert den Tagesverbrauch sowie einen Lebenszähler.
 * Die Optimierung für den Raspberry Pi zielt auf die Schonung der SD-Karte ab.
@@ -6,7 +6,7 @@
 *
 * Hauptmerkmale:
 * - Exponential Moving Average (EMA) für eine geglättete, Echtzeit-Watt-Anzeige (nicht auf SD gespeichert).
-* - Tagesverbrauch wird stündlich gesichert, um Datenverlust zu minimieren und die SD-Karte zu schonen.
+* - Tagesverbrauch wird alle 10 Minuten gesichert, um Datenverlust zu minimieren und die SD-Karte zu schonen.
 * - Lebenszähler und tägliches Backup werden einmal täglich bei Mitternacht aktualisiert.
 * - Manuelle Backup- und Restore-Funktionalität.
 * - Filterung von Ausreißern durch einen minimalen Watt-Schwellenwert.
@@ -116,26 +116,25 @@ setInterval(() => {
 
 }, 1000);
 
-// === Stündliche Speicherung des Tagesverbrauchs ===
-// Schreibt den aktuellen Tagesverbrauch einmal pro Stunde auf die SD-Karte
-schedule("0 * * * *", function () {
+// === Speicherung des Tagesverbrauchs alle 10 Minuten ===
+// Schreibt den aktuellen Tagesverbrauch alle 10 Minuten auf die SD-Karte
+schedule("*/10 * * * *", function () {
     const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
-    // Korrektur: Werte hier direkt abrufen, um den aktuellen Stand zu erhalten
+    // Werte hier direkt abrufen, um den aktuellen Stand zu erhalten
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
     let currentWatt = amp * volt;
 
     // Gefilterter Tagesverbrauch: Werte < MIN_WATT_THRESHOLD werden auf vorherigen Wert gesetzt
-    // Dieser Wert wird nur stündlich aktualisiert
     let kWhFiltered = kWhToday;
     if (currentWatt < MIN_WATT_THRESHOLD) {
         kWhFiltered = getState(base+"verbrauch_aktuell_filtered").val || 0;
     }
     setState(base+"verbrauch_aktuell_filtered", kWhFiltered, true);
 
-    log("Stündliche Sicherung des Tagesverbrauchs: " + kWhToday + " kWh");
+    log("Sicherung des Tagesverbrauchs: " + kWhToday + " kWh");
 });
 
 
