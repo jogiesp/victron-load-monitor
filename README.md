@@ -302,6 +302,7 @@ We welcome contributions! Areas for improvement:
 - Mobile app integration
 - Historical data analysis tools
 
+<br> <!-- Leerzeile vor den Bildern -->
 
 <!-- Erster Rahmen mit Beschriftung -->
 <figure style="display: inline-block; border: 2px solid black; padding: 10px; margin: 10px; text-align: center;">
@@ -329,11 +330,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **ioBroker Community** for the robust IoT platform
 - **ESP Community** for affordable, reliable hardware
 
-## 📞 Support ❌ No
+🏆 Special thanks for support from the following Telegram groups:  
+- [Solaranlage](https://t.me/PV_Solaranlage)  
+- [Tasmota-DE](https://t.me/TasmotaDE)
+
+
 
 For issues, questions, or contributions:
 
 1. Check the [Issues](../../issues) section
 2. Consult the [Wiki](../../wiki) for additional documentation
-
+## 📞 Support ❌ No
 **Happy Monitoring! ⚡🔋**
