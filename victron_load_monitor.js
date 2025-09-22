@@ -122,7 +122,7 @@ schedule("0 * * * *", function () {
     const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
-    // NEU: Werte hier direkt abrufen, um den aktuellen Stand zu erhalten
+    // Korrektur: Werte hier direkt abrufen, um den aktuellen Stand zu erhalten
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
     let currentWatt = amp * volt;
