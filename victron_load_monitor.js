@@ -15,7 +15,7 @@
 // === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
 
 // Zielordner für das Skript
-const base = "0_userdata.0.victron.lastausgang.";
+const base = "0_userdata.0.victron.lastausgangpt.";
 
 // Quellen
 const ampDP    = "mqtt.0.Victron.Load_current"; // A
@@ -116,9 +116,9 @@ setInterval(() => {
 
 }, 1000);
 
-// === Speicherung des Tagesverbrauchs alle 10 Minuten ===
-// Schreibt den aktuellen Tagesverbrauch alle 10 Minuten auf die SD-Karte
-schedule("*/10 * * * *", function () {
+// === Speicherung des Tagesverbrauchs jede Minute zum Testen ===
+// Schreibt den aktuellen Tagesverbrauch jede Minute auf die SD-Karte
+schedule("* * * * *", function () {
     const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
@@ -145,6 +145,7 @@ schedule("59 23 * * *", function () {
 
     setState(base+"verbrauch_gesamt", parseFloat((gesamt + tagesverbrauch).toFixed(3)), true);
     setState(base+"verbrauch_aktuell", 0, true);
+    setState(base+"verbrauch_aktuell_filtered", 0, true);
     wattSecondsToday = 0;
 
     // Führe das tägliche Backup durch, nachdem der Tageszähler auf Null gesetzt wurde
