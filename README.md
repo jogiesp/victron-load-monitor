@@ -26,7 +26,7 @@
 - [Acknowledgments](#-acknowledgments)
 - [Support](#-support--no)
 - [Example images](#example-images)
-- [Special thanks for support](#Special-thanks-for-support-from-the-following-Telegram-groups)
+- [Special thanks for support](#-special-thanks-for-support-from-the-following-telegram-groups)
 ## 📖 Overview
 
 This project provides precise monitoring of the load output from Victron MPPT solar charge controllers, delivering real-time consumption data with advanced filtering and analytics. The system captures power consumption in watts and accurately calculates energy usage in kWh for both daily tracking and lifetime monitoring.
