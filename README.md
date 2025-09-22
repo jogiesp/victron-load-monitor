@@ -305,19 +305,18 @@ We welcome contributions! Areas for improvement:
 <br> <!-- Leerzeile vor den Bildern -->
 
 <!-- Erster Rahmen mit Beschriftung -->
-<figure style="display: inline-block; border: 2px solid black; padding: 10px; margin: 10px; text-align: center;">
+<figure style="display: inline-block; border: 2px solid black; background-color: #f9f9f9; padding: 10px; margin: 10px; text-align: center; border-radius: 8px;">
   <figcaption><strong>ioBroker Datenpunkte</strong></figcaption>
   <img src="images/datenpunkte.jpg" alt="Datenpunkte Ansicht" width="40%">
 </figure>
 
 <!-- Zweiter Rahmen mit Beschriftung -->
-<figure style="display: inline-block; border: 2px solid black; padding: 10px; margin: 10px; text-align: center;">
-  <figcaption><strong>Victron App VS Visualisierung Iobroker</strong></figcaption>
+<figure style="display: inline-block; border: 2px solid black; background-color: #f9f9f9; padding: 10px; margin: 10px; text-align: center; border-radius: 8px;">
+  <figcaption><strong>Victron App VS Visualisierung IoBroker</strong></figcaption>
   <img src="images/vergleich_beispiel.png" alt="Vergleich der Victron Lastausgangsdaten" width="30%">
 </figure>
 
 <br> <!-- Leerzeile nach den Bildern -->
-
 
 ## 📄 License
 
@@ -325,20 +324,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Victron Energy** for excellent documentation and open hardware interfaces
-- **softwarecrash** for the Victron2MQTT firmware project
-- **ioBroker Community** for the robust IoT platform
-- **ESP Community** for affordable, reliable hardware
+- **Victron Energy** for excellent documentation and open hardware interfaces  
+- **softwarecrash** for the Victron2MQTT firmware project  
+- **ioBroker Community** for the robust IoT platform  
+- **ESP Community** for affordable, reliable hardware  
 
 🏆 Special thanks for support from the following Telegram groups:  
 - [Solaranlage](https://t.me/PV_Solaranlage)  
 - [Tasmota-DE](https://t.me/TasmotaDE)
 
-
-
 For issues, questions, or contributions:
 
-1. Check the [Issues](../../issues) section
-2. Consult the [Wiki](../../wiki) for additional documentation
+1. Check the [Issues](../../issues) section  
+2. Consult the [Wiki](../../wiki) for additional documentation  
+
 ## 📞 Support ❌ No
 **Happy Monitoring! ⚡🔋**
