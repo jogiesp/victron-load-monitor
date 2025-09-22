@@ -25,6 +25,7 @@
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
 - [Support](#-support--no))
+- [Example images](#-example-images))
 
 ## 📖 Overview
 
@@ -303,7 +304,7 @@ We welcome contributions! Areas for improvement:
 - Historical data analysis tools
 
 <br> <!-- Leerzeile vor den Bildern -->
-
+## Example images
 <!-- Erster Rahmen mit Beschriftung -->
 <figure style="display: inline-block; border: 2px solid black; background-color: #f9f9f9; padding: 10px; margin: 10px; text-align: center; border-radius: 8px;">
   <figcaption><strong>ioBroker Datenpunkte</strong></figcaption>
