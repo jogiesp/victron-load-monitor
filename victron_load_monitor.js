@@ -1,4 +1,4 @@
-/*
+/* V.1
 * Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
 * und speichert den Tagesverbrauch sowie einen Lebenszähler.
 * Die Optimierung für den Raspberry Pi zielt auf die Schonung der SD-Karte ab.
