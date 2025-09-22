@@ -1,6 +1,20 @@
-// === Verbesserter Victron Tagesverbrauch & Lebenszähler mit EMA, Backup & Fehlerbehandlung & Filter ===
+/*
+* Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
+* und speichert den Tagesverbrauch sowie einen Lebenszähler.
+* Die Optimierung für den Raspberry Pi zielt auf die Schonung der SD-Karte ab.
+* Das Skript ist jedoch plattformunabhängig und funktioniert auf jedem System mit ioBroker.
+*
+* Hauptmerkmale:
+* - Exponential Moving Average (EMA) für eine geglättete, Echtzeit-Watt-Anzeige (nicht auf SD gespeichert).
+* - Tagesverbrauch wird stündlich gesichert, um Datenverlust zu minimieren und die SD-Karte zu schonen.
+* - Lebenszähler und tägliches Backup werden einmal täglich bei Mitternacht aktualisiert.
+* - Manuelle Backup- und Restore-Funktionalität.
+* - Filterung von Ausreißern durch einen minimalen Watt-Schwellenwert.
+*/
 
-// Zielordner für das Gemini-Testskript
+// === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
+
+// Zielordner für das Skript
 const base = "0_userdata.0.victron.lastausgang.";
 
 // Quellen
@@ -12,7 +26,7 @@ let lastCalculationTime = new Date().getTime();
 let wattSecondsToday = 0; // Akkumulator für Wattsekunden heute
 let lastWatt = 0; // Für die EMA-geglättete Watt-Anzeige
 const alpha = 0.3; // EMA-Faktor
-const MIN_WATT_THRESHOLD = 0.1; // Minimalwert, unter dem wir den Verbrauch als Ausreißer behandeln
+const MIN_WATT_THRESHOLD = 0.1; // Minimalwert
 
 // Hilfsfunktion: Datenpunkte anlegen
 function createDP(path, type="number", role="value", unit="", defVal=0) {
@@ -36,7 +50,7 @@ function setupStructure() {
     // Neuer Datenpunkt für manuelle Anpassung
     createDP(base+"anpassen_verbrauch_aktuell", "number", "level.value", "kWh", 0);
 
-    // Backup & Restore
+    // Backup & Restore (Datenpunkte bleiben, Backup-Frequenz wird über schedule geregelt)
     createDP(base+"backup", "string", "json", "");
     createDP(base+"backup_now", "boolean", "button", "", false);
     createDP(base+"restore_now", "boolean", "button", "", false);
@@ -75,7 +89,8 @@ function restoreBackup() {
     log("Backup erfolgreich wiederhergestellt!");
 }
 
-// === Intervall-basierte Verbrauchsberechnung (alle 1 Sekunde) mit Filter ===
+// === Intervall-basierte Verbrauchsberechnung (alle 1 Sekunde) ===
+// Daten werden in Variablen gehalten, Schreibvorgänge sind getaktet
 setInterval(() => {
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
@@ -85,7 +100,6 @@ setInterval(() => {
     if (typeof volt !== 'number' || isNaN(volt)) volt = 0;
 
     const currentWatt = amp * volt;
-
     const now = new Date().getTime();
     const timeDeltaSeconds = (now - lastCalculationTime) / 1000;
     lastCalculationTime = now;
@@ -95,22 +109,35 @@ setInterval(() => {
         wattSecondsToday += currentWatt * timeDeltaSeconds;
     }
 
-    // Tagesverbrauch in kWh, gerundet auf 3 Nachkommastellen
+    // EMA für Watt-Anzeige
+    // WICHTIG: setState mit 'false', damit es nicht auf die SD-Karte geschrieben wird
+    lastWatt = alpha * currentWatt + (1 - alpha) * lastWatt;
+    setState(base+"aktuelle_watt", Math.round(lastWatt), false); 
+
+}, 1000);
+
+// === Stündliche Speicherung des Tagesverbrauchs ===
+// Schreibt den aktuellen Tagesverbrauch einmal pro Stunde auf die SD-Karte
+schedule("0 * * * *", function () {
     const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
+    // NEU: Werte hier direkt abrufen, um den aktuellen Stand zu erhalten
+    let amp = getState(ampDP).val;
+    let volt = getState(voltDP).val;
+    let currentWatt = amp * volt;
+
     // Gefilterter Tagesverbrauch: Werte < MIN_WATT_THRESHOLD werden auf vorherigen Wert gesetzt
+    // Dieser Wert wird nur stündlich aktualisiert
     let kWhFiltered = kWhToday;
     if (currentWatt < MIN_WATT_THRESHOLD) {
         kWhFiltered = getState(base+"verbrauch_aktuell_filtered").val || 0;
     }
     setState(base+"verbrauch_aktuell_filtered", kWhFiltered, true);
 
-    // EMA für Watt-Anzeige
-    lastWatt = alpha * currentWatt + (1 - alpha) * lastWatt;
-    setState(base+"aktuelle_watt", Math.round(lastWatt), true);
+    log("Stündliche Sicherung des Tagesverbrauchs: " + kWhToday + " kWh");
+});
 
-}, 1000);
 
 // === Lebenszähler einmal täglich aktualisieren (23:59) ===
 schedule("59 23 * * *", function () {
@@ -121,7 +148,10 @@ schedule("59 23 * * *", function () {
     setState(base+"verbrauch_aktuell", 0, true);
     wattSecondsToday = 0;
 
-    log("Lebenszähler aktualisiert: " + (gesamt + tagesverbrauch).toFixed(3) + " kWh");
+    // Führe das tägliche Backup durch, nachdem der Tageszähler auf Null gesetzt wurde
+    createBackup();
+
+    log("Lebenszähler aktualisiert und tägliches Backup erstellt.");
 });
 
 // === Backup/Restore Buttons ===
