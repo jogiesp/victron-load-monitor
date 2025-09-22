@@ -24,8 +24,8 @@
 - [Contributing](#-contributing)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
-- [Support](#-support--no))
-- [Example images](#-example-images))
+- [Support](#-support--no)
+- [Example images](#-[-example-images))
 
 ## 📖 Overview
 
