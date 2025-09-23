@@ -15,7 +15,7 @@
 // === Enhanced Victron Daily Consumption & Lifetime Counter ===
 
 // Target folder for the script
-const base = "0_userdata.0.victron.Loadoutput.";
+const base = "0_userdata.0.victron.loadoutput.";
 
 // Sources
 const ampDP    = "mqtt.0.Victron.Load_current"; // A
