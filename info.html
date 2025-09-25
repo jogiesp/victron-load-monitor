@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Datenpunkte Victron</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .box {
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align: center;
+    margin: 20px auto;
+    width: 220px;
+    background-color: #f0f0f0;
+    position: relative;
+  }
+  .arrow-down {
+    width: 2px;
+    height: 30px;
+    background: #333;
+    margin: 0 auto;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  .arrow-right {
+    width: 40px;
+    height: 2px;
+    background: #333;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="box">Victron Messung<br>(Ampere, Volt)</div>
+  <div class="arrow-down"></div>
+  <div class="box">Berechnung: Watt = A * V</div>
+  <div class="arrow-down"></div>
+  <div class="box">wattSecondsToday<br>(akkumuliert jede Sekunde)</div>
+  <div class="arrow-down"></div>
+  <div class="box">kWhMeasured</div>
+  <div class="arrow-down"></div>
+
+  <div class="row">
+    <div class="box">offset_applied_day<br>(Datum, Offset angewendet)</div>
+    <div class="box">korrektur_offset<br>(Tageskorrektur kWh)</div>
+  </div>
+  <div class="arrow-down"></div>
+
+  <div class="box">kWhToday = kWhMeasured + Offset (einmal pro Tag)</div>
+  <div class="arrow-down"></div>
+  <div class="box">verbrauch_aktuell<br>(gespeichert jede Minute)</div>
+  <div class="arrow-down"></div>
+  <div class="box">verbrauch_aktuell_filtered<br>(Ausreißer gefiltert)</div>
+  <div class="arrow-down"></div>
+  <div class="box">verbrauch_gesamt<br>(Lebenszähler, 23:59 Tagesverbrauch)</div>
+  <div class="arrow-down"></div>
+  <div class="box">Backup / Restore<br>(JSON aller Werte)</div>
+</div>
+
+</body>
+</html>
