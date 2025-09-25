@@ -13,64 +13,52 @@
 * Verbesserte Version des Victron-Tagesverbrauchskripts mit dynamischem Korrekturfaktor.
 * Hintergrund: Victron-Werte weichen systematisch ab.
 * Lösung: Korrekturfaktor (Offset) kann direkt über ioBroker angepasst werden.
-*/
-
-// === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
-/*
-* Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
-* und speichert den Tagesverbrauch sowie einen Lebenszähler.
+*
+*
+* Victron Tagesverbrauch & Lebenszähler mit einmaligem Tages-Offset
 * Optimiert für ioBroker / Raspberry Pi.
 */
 
-// === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
-
-// Zielordner
+// === Zielordner & Quellen ===
 const base = "0_userdata.0.victron.lastausgangpt.";
-
-// Quellen
 const ampDP    = "mqtt.0.Victron.Load_current"; // A
 const voltDP   = "mqtt.0.Victron.Voltage";      // V
 
-// Hilfsvariablen
+// === Hilfsvariablen ===
 let lastCalculationTime = new Date().getTime();
-let wattSecondsToday = 0;
-let lastWatt = 0;
-const alpha = 0.3;
+let wattSecondsToday = 0;      // echte gemessene Energie in Wattsekunden
+let lastWatt = 0;              // EMA-Watt
+const alpha = 0.3;             
 const MIN_WATT_THRESHOLD = 0.1;
 
-// Hilfsfunktion: Datenpunkte anlegen
+let offsetToday = 0;           // temporärer Tages-Offset
+
+// === Hilfsfunktion: Datenpunkte anlegen ===
 function createDP(path, type="number", role="value", unit="", defVal=0) {
     if (!existsState(path)) {
-        createState(path, defVal, {
-            type: type,
-            name: path.split(".").pop(),
-            role: role,
-            unit: unit
-        });
+        createState(path, defVal, { type: type, name: path.split(".").pop(), role: role, unit: unit });
     }
 }
 
-// Struktur anlegen
+// === Struktur anlegen ===
 function setupStructure() {
-    createDP(base+"verbrauch_aktuell", "number","value","kWh");
-    createDP(base+"verbrauch_aktuell_filtered", "number","value","kWh");
-    createDP(base+"verbrauch_gesamt", "number","value","kWh");
-    createDP(base+"aktuelle_watt", "number", "value", "W", 0);
+    createDP(base+"verbrauch_aktuell","number","value","kWh");
+    createDP(base+"verbrauch_aktuell_filtered","number","value","kWh");
+    createDP(base+"verbrauch_gesamt","number","value","kWh");
+    createDP(base+"aktuelle_watt","number","value","W",0);
 
-    createDP(base+"anpassen_verbrauch_aktuell", "number", "level.value", "kWh", 0);
-    
-    // Neuer Datenpunkt für Offset
-    createDP(base+"korrektur_offset", "number", "value", "kWh", 0);
-    createDP(base+"offset_applied_day", "string", "value", "", "");
+    createDP(base+"anpassen_verbrauch_aktuell","number","level.value","kWh",0);
+    createDP(base+"korrektur_offset","number","value","kWh",0);
+    createDP(base+"offset_applied_day","string","value","","");
 
-    createDP(base+"backup", "string", "json", "");
-    createDP(base+"backup_now", "boolean", "button", "", false);
-    createDP(base+"restore_now", "boolean", "button", "", false);
-    createDP(base+"last_backup_time", "string", "value", "", "");
+    createDP(base+"backup","string","json","");
+    createDP(base+"backup_now","boolean","button",false);
+    createDP(base+"restore_now","boolean","button",false);
+    createDP(base+"last_backup_time","string","value","");
 }
 setupStructure();
 
-// === Backup-Funktion ===
+// === Backup / Restore ===
 function createBackup() {
     const now = new Date();
     const data = {
@@ -85,7 +73,6 @@ function createBackup() {
     log("Backup erstellt: " + JSON.stringify(data));
 }
 
-// === Restore-Funktion ===
 function restoreBackup() {
     const backupData = getState(base+"backup").val;
     if (!backupData) { log("Kein Backup vorhanden."); return; }
@@ -101,7 +88,7 @@ function restoreBackup() {
     log("Backup erfolgreich wiederhergestellt!");
 }
 
-// === Intervall-basierte Verbrauchsberechnung (jede Sekunde) ===
+// === Verbrauchsberechnung (jede Sekunde) ===
 setInterval(() => {
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
@@ -119,43 +106,43 @@ setInterval(() => {
     }
 
     lastWatt = alpha * currentWatt + (1 - alpha) * lastWatt;
-    setState(base+"aktuelle_watt", Math.round(lastWatt), false); 
+    setState(base+"aktuelle_watt", Math.round(lastWatt), false);
 }, 1000);
 
-// === Einmal-pro-Tag Offset anwenden ===
+// === Einmaliger Tages-Offset ===
 function applyDailyOffset() {
-    const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+    const today = new Date().toISOString().slice(0,10);
     const appliedDay = getState(base+"offset_applied_day").val || "";
 
     if (appliedDay !== today) {
-        const offset = parseFloat(getState(base+"korrektur_offset").val) || 0;
-        wattSecondsToday += offset * 3600 * 1000; // kWh → Wattsekunden
+        offsetToday = parseFloat(getState(base+"korrektur_offset").val) || 0;
         setState(base+"offset_applied_day", today, true);
-        log("Offset von " + offset + " kWh einmalig für heute angewendet.");
+        log("Offset von " + offsetToday + " kWh einmalig für heute aktiviert.");
     }
 }
 
-// === Speicherung des Tagesverbrauchs jede Minute ===
+// === Tagesverbrauch speichern (jede Minute) ===
 schedule("* * * * *", function () {
     applyDailyOffset();
 
-    const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
+    const kWhMeasured = wattSecondsToday / 3600 / 1000;
+    const kWhToday = parseFloat((kWhMeasured + offsetToday).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
+    // Gefilterter Verbrauch
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
     let currentWatt = amp * volt;
-
     let kWhFiltered = kWhToday;
     if (currentWatt < MIN_WATT_THRESHOLD) {
         kWhFiltered = getState(base+"verbrauch_aktuell_filtered").val || 0;
     }
     setState(base+"verbrauch_aktuell_filtered", kWhFiltered, true);
 
-    log("Sicherung des Tagesverbrauchs: " + kWhToday + " kWh");
+    log("Tagesverbrauch inkl. Offset: " + kWhToday + " kWh");
 });
 
-// === Lebenszähler einmal täglich aktualisieren (23:59) ===
+// === Lebenszähler (23:59) ===
 schedule("59 23 * * *", function () {
     const gesamt = getState(base+"verbrauch_gesamt").val || 0;
     const tagesverbrauch = getState(base+"verbrauch_aktuell").val || 0;
@@ -164,13 +151,13 @@ schedule("59 23 * * *", function () {
     setState(base+"verbrauch_aktuell", 0, true);
     setState(base+"verbrauch_aktuell_filtered", 0, true);
     wattSecondsToday = 0;
+    offsetToday = 0;
 
     createBackup();
-
     log("Lebenszähler aktualisiert und tägliches Backup erstellt.");
 });
 
-// === Backup/Restore Buttons ===
+// === Backup / Restore Buttons ===
 on({id: base+"backup_now", change: "any"}, (obj) => {
     if (obj.state.val === true) {
         createBackup();
@@ -187,7 +174,7 @@ on({id: base+"restore_now", change: "any"}, (obj) => {
     }
 });
 
-// --- Manuelle Anpassung des Tagesverbrauchs ---
+// === Manuelle Anpassung Tagesverbrauch ===
 on({id: base+"anpassen_verbrauch_aktuell", change: "any"}, function (obj) {
     const newKWh = obj.state.val;
     if (typeof newKWh === 'number' && newKWh >= 0) {
