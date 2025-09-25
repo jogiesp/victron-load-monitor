@@ -16,9 +16,16 @@
 */
 
 // === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
+/*
+* Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
+* und speichert den Tagesverbrauch sowie einen Lebenszähler.
+* Optimiert für ioBroker / Raspberry Pi.
+*/
 
-// Zielordner für das Skript
-const base = "0_userdata.0.victron.lastausgangoffset.";
+// === Verbesserter Victron Tagesverbrauch & Lebenszähler ===
+
+// Zielordner
+const base = "0_userdata.0.victron.lastausgangpt.";
 
 // Quellen
 const ampDP    = "mqtt.0.Victron.Load_current"; // A
@@ -26,13 +33,10 @@ const voltDP   = "mqtt.0.Victron.Voltage";      // V
 
 // Hilfsvariablen
 let lastCalculationTime = new Date().getTime();
-let wattSecondsToday = 0; // Akkumulator für Wattsekunden heute
-let lastWatt = 0; // Für die EMA-geglättete Watt-Anzeige
-const alpha = 0.3; // EMA-Faktor
-const MIN_WATT_THRESHOLD = 0.1; // Minimalwert
-
-// === NEU: Dynamischer Korrekturfaktor ===
-let korrekturOffset = 0.020; // Default-Wert
+let wattSecondsToday = 0;
+let lastWatt = 0;
+const alpha = 0.3;
+const MIN_WATT_THRESHOLD = 0.1;
 
 // Hilfsfunktion: Datenpunkte anlegen
 function createDP(path, type="number", role="value", unit="", defVal=0) {
@@ -53,17 +57,16 @@ function setupStructure() {
     createDP(base+"verbrauch_gesamt", "number","value","kWh");
     createDP(base+"aktuelle_watt", "number", "value", "W", 0);
 
-    // Manuelle Anpassung des Tagesverbrauchs
     createDP(base+"anpassen_verbrauch_aktuell", "number", "level.value", "kWh", 0);
+    
+    // Neuer Datenpunkt für Offset
+    createDP(base+"korrektur_offset", "number", "value", "kWh", 0);
+    createDP(base+"offset_applied_day", "string", "value", "", "");
 
-    // Backup & Restore
     createDP(base+"backup", "string", "json", "");
     createDP(base+"backup_now", "boolean", "button", "", false);
     createDP(base+"restore_now", "boolean", "button", "", false);
     createDP(base+"last_backup_time", "string", "value", "", "");
-
-    // NEU: Datenpunkt für Korrekturfaktor
-    createDP(base+"korrektur_offset", "number", "level.value", "kWh", 0.020);
 }
 setupStructure();
 
@@ -98,7 +101,7 @@ function restoreBackup() {
     log("Backup erfolgreich wiederhergestellt!");
 }
 
-// === Intervall-basierte Verbrauchsberechnung (alle 1 Sekunde) ===
+// === Intervall-basierte Verbrauchsberechnung (jede Sekunde) ===
 setInterval(() => {
     let amp = getState(ampDP).val;
     let volt = getState(voltDP).val;
@@ -119,14 +122,24 @@ setInterval(() => {
     setState(base+"aktuelle_watt", Math.round(lastWatt), false); 
 }, 1000);
 
+// === Einmal-pro-Tag Offset anwenden ===
+function applyDailyOffset() {
+    const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+    const appliedDay = getState(base+"offset_applied_day").val || "";
+
+    if (appliedDay !== today) {
+        const offset = parseFloat(getState(base+"korrektur_offset").val) || 0;
+        wattSecondsToday += offset * 3600 * 1000; // kWh → Wattsekunden
+        setState(base+"offset_applied_day", today, true);
+        log("Offset von " + offset + " kWh einmalig für heute angewendet.");
+    }
+}
+
 // === Speicherung des Tagesverbrauchs jede Minute ===
 schedule("* * * * *", function () {
-    let kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
+    applyDailyOffset();
 
-    // Korrekturfaktor aus Datenpunkt lesen
-    korrekturOffset = getState(base+"korrektur_offset").val || 0;
-    kWhToday = parseFloat((kWhToday + korrekturOffset).toFixed(3));
-
+    const kWhToday = parseFloat((wattSecondsToday / 3600 / 1000).toFixed(3));
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
     let amp = getState(ampDP).val;
@@ -139,7 +152,7 @@ schedule("* * * * *", function () {
     }
     setState(base+"verbrauch_aktuell_filtered", kWhFiltered, true);
 
-    log("Sicherung des Tagesverbrauchs: " + kWhToday + " kWh (Offset: " + korrekturOffset + ")");
+    log("Sicherung des Tagesverbrauchs: " + kWhToday + " kWh");
 });
 
 // === Lebenszähler einmal täglich aktualisieren (23:59) ===
