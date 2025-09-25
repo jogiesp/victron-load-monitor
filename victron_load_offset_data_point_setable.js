@@ -17,6 +17,10 @@
 *
 * Victron Tagesverbrauch & Lebenszähler mit einmaligem Tages-Offset
 * Optimiert für ioBroker / Raspberry Pi.
+*
+* Dieses Skript berechnet den Stromverbrauch aus Victron-Daten (Ampere, Volt)
+* und speichert den Tagesverbrauch sowie einen Lebenszähler.
+* Optimiert für ioBroker / Raspberry Pi.
 */
 
 // === Zielordner & Quellen ===
@@ -30,8 +34,6 @@ let wattSecondsToday = 0;      // echte gemessene Energie in Wattsekunden
 let lastWatt = 0;              // EMA-Watt
 const alpha = 0.3;             
 const MIN_WATT_THRESHOLD = 0.1;
-
-let offsetToday = 0;           // temporärer Tages-Offset
 
 // === Hilfsfunktion: Datenpunkte anlegen ===
 function createDP(path, type="number", role="value", unit="", defVal=0) {
@@ -115,9 +117,8 @@ function applyDailyOffset() {
     const appliedDay = getState(base+"offset_applied_day").val || "";
 
     if (appliedDay !== today) {
-        offsetToday = parseFloat(getState(base+"korrektur_offset").val) || 0;
         setState(base+"offset_applied_day", today, true);
-        log("Offset von " + offsetToday + " kWh einmalig für heute aktiviert.");
+        log("Offset von " + getState(base+"korrektur_offset").val + " kWh für heute aktiviert.");
     }
 }
 
@@ -126,7 +127,12 @@ schedule("* * * * *", function () {
     applyDailyOffset();
 
     const kWhMeasured = wattSecondsToday / 3600 / 1000;
-    const kWhToday = parseFloat((kWhMeasured + offsetToday).toFixed(3));
+    const offset = parseFloat(getState(base+"korrektur_offset").val) || 0;
+    const appliedDay = getState(base+"offset_applied_day").val || "";
+
+    // Offset nur einmal täglich aufschlagen
+    const kWhToday = appliedDay === new Date().toISOString().slice(0,10) ? parseFloat((kWhMeasured + offset).toFixed(3)) : parseFloat(kWhMeasured.toFixed(3));
+    
     setState(base+"verbrauch_aktuell", kWhToday, true);
 
     // Gefilterter Verbrauch
@@ -151,7 +157,6 @@ schedule("59 23 * * *", function () {
     setState(base+"verbrauch_aktuell", 0, true);
     setState(base+"verbrauch_aktuell_filtered", 0, true);
     wattSecondsToday = 0;
-    offsetToday = 0;
 
     createBackup();
     log("Lebenszähler aktualisiert und tägliches Backup erstellt.");
